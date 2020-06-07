@@ -18,7 +18,7 @@ variable "subnets_id" {
   type =list(string)
 }
 
-variable "enable_deletion_protection " {
+variable "enable_deletion_protection" {
   default = true
   type = bool
 }
