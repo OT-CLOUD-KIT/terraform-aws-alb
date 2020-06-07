@@ -5,7 +5,7 @@ variable "alb_name" {
 }
 
 variable "internal" {
-  type = boolean
+  type = bool
 }
 
 variable "security_groups_id" {
@@ -20,7 +20,7 @@ variable "subnets_id" {
 
 variable "enable_deletion_protection " {
   default = true
-  type = boolean
+  type = bool
 }
 
 variable "tags" {
@@ -34,6 +34,7 @@ variable "logs_bucket" {
 }
 
 variable "enable_logging" {
+  type = bool
   default = true
 }
 
