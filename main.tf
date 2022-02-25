@@ -20,7 +20,7 @@ resource "aws_lb" "alb" {
   }
 }
 
-resource "aws_alb_listener" "alb_listener" { 
+resource "aws_alb_listener" "alb_http_listener" { 
   load_balancer_arn = aws_lb.alb.arn  
   port              = 80  
   protocol          = "HTTP"
@@ -36,18 +36,18 @@ resource "aws_alb_listener" "alb_listener" {
   }
 }
 
-resource "aws_alb_listener" "alb_listener1" { 
+resource "aws_alb_listener" "alb_https_listener" { 
   load_balancer_arn = aws_lb.alb.arn  
   port              = 443
   protocol          = "HTTP"
 
-    default_action {
-    type = "redirect"
+ default_action {
+    type = "fixed-response"
 
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Fixed response content"
+      status_code  = "200"
     }
   } 
 }
