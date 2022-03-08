@@ -39,7 +39,7 @@ resource "aws_alb_listener" "alb_http_listener" {
 resource "aws_alb_listener" "alb_https_listener" { 
   load_balancer_arn = aws_lb.alb.arn  
   port              = 443
-  protocol          = "HTTP"
+  protocol          = "HTTPS"
 
  default_action {
     type = "fixed-response"
