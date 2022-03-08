@@ -39,3 +39,8 @@ variable "enable_logging" {
 }
 
 
+variable "alb_certificate_arn" {
+  description = "Cretificate arn for alb"
+  type = string
+  default = "arn:aws:acm:ap-south-1:713773818317:certificate/8d44d495-107c-4d99-acc0-dfce906a9793"
+}
