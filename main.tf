@@ -8,14 +8,14 @@ resource "aws_lb" "alb" {
 
   tags = merge(
     {
-      "Name" = format("%s-alb", var.alb_name)
+      "Name" = format("%s", var.alb_name)
     },
     var.tags,
   )
 
   access_logs {
     bucket        = var.logs_bucket
-    prefix = format("%s-alb", var.alb_name)
+    prefix = format("%s", var.alb_name)
     enabled      = var.enable_logging
   }
 }
