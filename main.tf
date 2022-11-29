@@ -13,14 +13,12 @@ resource "aws_lb" "alb" {
     var.tags,
   )
 
-  dynamic "access_logs" {
-    for_each = var.enable_logging == true ? var.logs_bucket : null
-    iterator = logging
-    content {
-    bucket        = var.logs_bucket
-    prefix = format("%s-alb", var.alb_name)
+
+
+   access_logs{
+    bucket        = var.enable_logging == true ? var.logs_bucket : null
+    prefix = var.enable_logging == true ? format("%s-alb", var.alb_name) : null
     enabled      = var.enable_logging
-   }
   }
 }
 

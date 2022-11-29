@@ -30,9 +30,9 @@ variable "tags" {
 }
 
 variable "logs_bucket" {
-  type = list(string)
+  type = string
   description = "Name of bucket where we would be storing our logs"
-  default = [ "test" ]
+  default = "test"
 }
 
 variable "enable_logging" {
