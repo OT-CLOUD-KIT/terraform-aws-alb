@@ -18,7 +18,7 @@ variable "subnets_id" {
   type =list(string)
 }
 
-variable "enable_deletion_protection " {
+variable "enable_deletion_protection" {
   default = true
   type = bool
 }
@@ -30,7 +30,9 @@ variable "tags" {
 }
 
 variable "logs_bucket" {
+  type = string
   description = "Name of bucket where we would be storing our logs"
+  default = "test"
 }
 
 variable "enable_logging" {
@@ -39,3 +41,8 @@ variable "enable_logging" {
 }
 
 
+variable "alb_certificate_arn" {
+  description = "Cretificate arn for alb"
+  type = string
+  default = " "
+}
