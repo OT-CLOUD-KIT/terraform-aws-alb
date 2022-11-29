@@ -13,13 +13,25 @@ resource "aws_lb" "alb" {
     var.tags,
   )
 
-
-
-   access_logs{
-    bucket        = var.enable_logging == true ? var.logs_bucket : null
-    prefix = var.enable_logging == true ? format("%s-alb", var.alb_name) : null
-    enabled      = var.enable_logging
+   dynamic "access_logs"{
+    for_each = var.enable_logging == true ? local.access_logs_info : []
+    iterator = logs_value
+    content {
+    bucket  = logs_value.value.bucket
+    prefix  = logs_value.value.prefix
+    enabled = logs_value.value.enabled
+    }
   }
+}
+
+locals {
+  access_logs_info = [
+    {
+    bucket  = var.logs_bucket
+    prefix  = format("%s-alb", var.alb_name)
+    enabled = var.enable_logging
+    }
+  ]
 }
 
 resource "aws_alb_listener" "alb_http_listener" { 
@@ -39,10 +51,11 @@ resource "aws_alb_listener" "alb_http_listener" {
 }
 
 resource "aws_alb_listener" "alb_https_listener" { 
+  count = var.alb_certificate_arn == " " ? 0 : 1
   load_balancer_arn = aws_lb.alb.arn  
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = var.alb_certificate_arn != "" ? var.alb_certificate_arn : null
+  certificate_arn   = var.alb_certificate_arn
 
  default_action {
     type = "fixed-response"
