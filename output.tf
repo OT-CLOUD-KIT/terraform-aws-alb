@@ -15,5 +15,5 @@ output "alb_http_listener_arn" {
 
 output "alb_https_listener_arn" {
   description = "ARN of alb https listener"
-  value = aws_alb_listener.alb_https_listener.arn
+  value = aws_alb_listener.alb_https_listener.*.arn
 }
