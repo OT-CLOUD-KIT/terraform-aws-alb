@@ -13,9 +13,18 @@ resource "aws_lb" "alb" {
     var.tags,
   )
 
+  dynamic "inline_policy" {
+    for_each = var.inline_node_group_policy
+    iterator = inline_policies
+    content {
+      name   = inline_policies.value.name
+      policy = inline_policies.value.policy
+    }
+  }
 
   dynamic "access_logs" {
-    count = var.enable_logging == true ? 1 : 0
+    for_each = var.enable_logging == true ? var.enable_logging : null
+    iterator = logging
     content {
     bucket        = var.logs_bucket
     prefix = format("%s-alb", var.alb_name)
