@@ -14,7 +14,7 @@ resource "aws_lb" "alb" {
   )
 
   dynamic "access_logs" {
-    for_each = var.enable_logging == true ? var.enable_logging : null
+    for_each = var.enable_logging == true ? var.logs_bucket : null
     iterator = logging
     content {
     bucket        = var.logs_bucket
