@@ -39,3 +39,8 @@ variable "enable_logging" {
 }
 
 
+variable "alb_certificate_arn" {
+  description = "Cretificate arn for alb"
+  type = string
+  default = ""
+}
