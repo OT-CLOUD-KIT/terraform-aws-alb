@@ -13,10 +13,13 @@ resource "aws_lb" "alb" {
     var.tags,
   )
 
-  access_logs {
+  dynamic "access_logs" {
+    count = var.enable_logging == true ? 1 : 0
+    content {
     bucket        = var.logs_bucket
     prefix = format("%s-alb", var.alb_name)
     enabled      = var.enable_logging
+   }
   }
 }
 
